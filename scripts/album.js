@@ -30,6 +30,22 @@ var albumMarconi = {
     ]
 };
 
+// Custom Album
+var albumCustom = {
+    name: 'The Computers',
+    artist: 'Alan Smith',
+    label: 'Machines',
+    year: '2003',
+    albumArtUrl: 'assets/images/album_covers/09.png',
+    songs: [
+        { name: 'Apple', length: '2:21' },
+        { name: 'Lenovo', length: '3:08' },
+        { name: 'HP', length: '1:35' },
+        { name: 'Dell', length: '6:15' },
+        { name: 'Acer', length: '3:05' }
+    ]
+};
+
 var createSongRow = function (songNumber, songName, songLength) {
     var template =
        '<tr class="album-view-song-item">'
@@ -64,5 +80,15 @@ var setCurrentAlbum = function (album) {
 };
 
 window.onload = function () {
+    var currentAlbumIndex = 0;
     setCurrentAlbum(albumPicasso);
+
+    var changeAlbum = function () {
+        currentAlbumIndex = ++currentAlbumIndex % 3;
+        var currentAlbum = currentAlbumIndex === 0 ? albumPicasso : currentAlbumIndex === 1 ? albumMarconi : albumCustom;
+        setCurrentAlbum(currentAlbum);
+    };
+
+    var cover = document.getElementsByClassName('album-cover-art')[0];
+    cover.addEventListener("click", changeAlbum, false);
 };
