@@ -11,21 +11,22 @@ var createSongRow = function (songNumber, songName, songLength) {
         var songNumber = parseInt($(this).attr('data-song-number'));
 
         if (currentlyPlayingSongNumber  !== null) {
-            var currentlyPlayingCell = $('.song-item-number[data-song-number="' + currentlyPlayingSongNumber  + '"]');
+            var currentlyPlayingCell = getSongNumberCell(currentlyPlayingSongNumber);
             currentlyPlayingCell.html(currentlyPlayingSongNumber );
             updatePlayerBarSong();
         }
 
         if (currentlyPlayingSongNumber  !== songNumber) {
             $(this).html(pauseButtonTemplate);
-            currentlyPlayingSongNumber  = songNumber;
-            currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+            setSong(songNumber);
+
+            //I think we need to call this method here again so that the play bar is updated once new song is played
+            updatePlayerBarSong();
         }
 
         else if (currentlyPlayingSongNumber  === songNumber) {
             $(this).html(playButtonTemplate);
-            currentlyPlayingSongNumber  = null;
-            currentSongFromAlbum = null;
+            setSong(null);
         }
     };
 
@@ -153,3 +154,20 @@ var updatePlayerBarSong = function(){
     $('.currently-playing .artist-song-mobile').text(currentSongFromAlbum.name + " - " + currentAlbum.artist);
     $('.left-controls .play-pause').html(playerBarPauseButton);
 }
+
+var setSong = function(songNumber){
+
+    if (songNumber  !== null) {
+        currentlyPlayingSongNumber  = songNumber;
+        currentSongFromAlbum = currentAlbum.songs[songNumber - 1];
+    }
+    else
+    {
+        currentlyPlayingSongNumber  = null;
+        currentSongFromAlbum = null;
+    }
+};
+
+var getSongNumberCell = function(number){
+    return $('.song-item-number[data-song-number="' + number + '"]');
+};
