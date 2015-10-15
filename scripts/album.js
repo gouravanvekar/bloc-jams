@@ -91,6 +91,12 @@ var trackIndex = function(album, song) {
     return album.songs.indexOf(song);
 };
 
+//var playSong = function() {
+//    if (currentSoundFile) {
+//        currentSoundFile.stop();
+//    }
+//}
+
 
 var nextSong = function() {
 
@@ -161,6 +167,7 @@ var currentVolume = 80;
 // Player bar element selectors
 var $previousButton = $('.left-controls .previous');
 var $nextButton = $('.left-controls .next');
+//var $playButton = $('.left-controls .play-pause');
 
 $(document).ready(function() {
     setCurrentAlbum(albumPicasso);
@@ -168,6 +175,7 @@ $(document).ready(function() {
 
     $previousButton.click(previousSong);
     $nextButton.click(nextSong);
+    //$playButton.click(playSong);
 });
 
 var updatePlayerBarSong = function(){
